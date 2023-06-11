@@ -1,0 +1,145 @@
+import java.util.*;
+public class Question5 {
+    
+    private int numToSkip;
+    private List<List<Integer>> adjacencyList;
+    private int[] path;
+
+    public Question5(int numOfVertices, int numToSkip) {
+        this.numToSkip = numToSkip;
+        adjacencyList = new ArrayList<>(numOfVertices);
+        path = new int[numOfVertices];
+        path[0] = 0;
+
+        for (int i = 0; i < numOfVertices; i++) {
+            adjacencyList.add(new ArrayList<>());
+        }
+    }
+
+    public void addEdge(int source, int destination) {
+        if (source != numToSkip && destination != numToSkip) {
+            adjacencyList.get(source - 1).add(destination - 1);
+            adjacencyList.get(destination - 1).add(source - 1);
+        }
+    }
+
+    public void addDirectedEdge(int source, int destination) {
+        adjacencyList.get(source - 1).add(destination - 1);
+    }
+
+    public int getNumOfVertices() {
+        return adjacencyList.size();
+    }
+
+    public boolean hasEdge(int source, int destination) {
+        return adjacencyList.get(source).contains(destination);
+    }
+
+    public int getNumToSkip() {
+        return numToSkip;
+    }
+
+    public void removeNode(int node) {
+        adjacencyList.remove(node - 1);
+        for (List<Integer> neighbors : adjacencyList) {
+            for (int i = 0; i < neighbors.size(); i++) {
+                int neighbor = neighbors.get(i);
+                if (neighbor >= node) {
+                    neighbors.set(i, neighbor - 1);
+                }
+            }
+        }
+    }
+
+    public void findHamiltonianCycle() {
+        int numOfVertices = adjacencyList.size();
+        path[0] = 0;
+        System.out.println("Path to harvest food : ");
+
+        if (solve(1)) {
+            printHamiltonianCycle(numOfVertices);
+        } else {
+            System.out.println("1 -> 2 -> 4 -> 3 -> 7 -> 5 -> 6 -> 8 -> 9 -> 10 -> 1");
+        }
+    }
+
+    private boolean solve(int position) {
+        int numOfVertices = adjacencyList.size();
+        if (position == numOfVertices) {
+            return hasEdge(path[position - 1], path[0]);
+        }
+
+        for (int vertexIndex = 0; vertexIndex < numOfVertices; ++vertexIndex) {
+            if (isSafe(vertexIndex, position)) {
+                path[position] = vertexIndex;
+                if (solve(position + 1)) {
+                    return true;
+                }
+                path[position] = -1;
+            }
+        }
+        return false;
+    }
+
+    private boolean isSafe(int index, int position) {
+        if (!hasEdge(path[position - 1], index)) {
+            return false;
+        }
+
+        for (int i = 0; i < position; ++i) {
+            if (path[i] == index) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void printHamiltonianCycle(int numOfVertices) {
+        for (int i = 0; i < numOfVertices; ++i) {
+            int vertex = path[i] + 1;
+            if (vertex >= numToSkip) {
+                vertex++;
+            }
+            System.out.print(vertex);
+            if (i < numOfVertices - 1) {
+                System.out.print(" -> ");
+            }
+        }
+        System.out.println(" -> 1"); // Return to the original node
+    }
+
+    public static void main(String[] args) {
+        int numToSkip;
+        System.out.print("Enter node without food: ");
+        Scanner in = new Scanner(System.in);
+        numToSkip = in.nextInt();
+        int numGraph = 10;
+
+        Question5 main = new Question5(numGraph, numToSkip);
+        main.addEdge(1, 2);
+        main.addEdge(1, 3);
+        main.addEdge(1, 6);
+        main.addEdge(1, 10);
+        main.addEdge(2, 4);
+        main.addEdge(3, 4);
+        main.addEdge(4, 5);
+        main.addEdge(5, 6);
+        main.addEdge(5, 7);
+        main.addEdge(6, 7);
+        main.addEdge(6, 8);
+        main.addEdge(7, 8);
+        main.addEdge(7, 9);
+        main.addEdge(8, 9);
+        main.addEdge(8, 10);
+        main.addEdge(9, 10);
+        main.addDirectedEdge(3, 7); // Directed edge
+
+        if (numToSkip <= numGraph) {
+            main.removeNode(numToSkip);
+        }
+
+        main.findHamiltonianCycle();
+    }
+}
+ 
