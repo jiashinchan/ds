@@ -1,0 +1,295 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.assignment;
+import java.util.*;
+
+//Two extra features in this code:
+//1. one extra seacrh algorithm: Best First Search
+//2. Enemy Fortress Attack Simulation I
+
+class Graph {
+
+    int destination;
+    double weight;
+    String geographicalFactor;
+    int generalType;
+
+    public Graph(int destination, double weight, String geographicalFactor) {
+        this.destination = destination;
+        this.weight = weight;
+        this.geographicalFactor = geographicalFactor;
+    }
+
+    public Graph(int generalType) {
+        this.generalType = generalType;
+    }
+        
+        
+}
+
+public class ExtraFeature {
+    
+
+    private static void printShortestPaths(List<List<Integer>> shortestPaths) {
+        System.out.println("Best path(s):");
+        for (List<Integer> path : shortestPaths) {
+            for (int i = 0; i < path.size(); i++) {
+                System.out.print(path.get(i));
+                if (i != path.size() - 1) {
+                    System.out.print(" -> ");
+                }
+            }
+            System.out.println();
+        }
+    }
+//applying bfs
+    private static List<List<Integer>> findShortestPaths(List<List<Graph>> g, int src, int dst, int v, String generalTypes) {
+        Queue<List<Integer>> queue = new LinkedList<>();
+        List<Integer> path = new ArrayList<>();
+        path.add(src);
+        queue.offer(path);
+        
+        List<Integer> shortestPath = null;
+        double shortestWeight = Double.MAX_VALUE;
+        double[] dist = new double[v];
+        Arrays.fill(dist, Double.MAX_VALUE);
+        dist[src] = 0;
+
+        while (!queue.isEmpty()) {
+            path = queue.poll();
+            int last = path.get(path.size() - 1);
+
+            if (last == dst) {
+                double currentWeight = calculateEdgeWeightForPath(path, g, generalTypes);
+                if (currentWeight < shortestWeight) {
+                    shortestPath = new ArrayList<>(path);
+                    shortestWeight = currentWeight;
+                }
+            }
+
+            List<Graph> lastNode = g.get(last);
+            for (int i = 0; i < lastNode.size(); i++) {
+                Graph node = lastNode.get(i);
+                int node1 = node.destination;
+                double edgeWeight = calculateEdgeWeight(node.weight, node.geographicalFactor, generalTypes);
+                if (isNotVisited(node1, path) && dist[node1] >= dist[last] + edgeWeight) {
+                    List<Integer> newpath = new ArrayList<>(path);
+                    newpath.add(node1);
+                    queue.offer(newpath);
+                    dist[node1] = dist[last] + edgeWeight;
+                }
+            }
+        }
+        if (shortestPath != null) {
+            List<List<Integer>> result = new ArrayList<>();
+            result.add(shortestPath);
+            return result;
+        } else {
+            return new ArrayList<>(); // No shortest path found
+        }
+    }
+    
+    //Best First Search
+    private static List<List<Integer>> findShortestPaths1(List<List<Graph>> g, int src, int dst, int v, String generalTypes) {
+        PriorityQueue<List<Integer>> queue = new PriorityQueue<>(Comparator.comparingDouble(path -> calculateEdgeWeightForPath(path, g, generalTypes)));
+        List<Integer> path = new ArrayList<>();
+        path.add(src);
+        queue.offer(path);
+        
+        List<Integer> shortestPath = null;
+        double shortestWeight = Double.MAX_VALUE;
+        double[] dist = new double[v];
+        Arrays.fill(dist, Double.MAX_VALUE);
+        dist[src] = 0;
+
+        while (!queue.isEmpty()) {
+            path = queue.poll();
+            int last = path.get(path.size() - 1);
+
+            if (last == dst) {
+                double currentWeight = calculateEdgeWeightForPath(path, g, generalTypes);
+                if (currentWeight < shortestWeight) {
+                    shortestPath = new ArrayList<>(path);
+                    shortestWeight = currentWeight;
+                }
+            }
+
+            List<Graph> lastNode = g.get(last);
+            for (int i = 0; i < lastNode.size(); i++) {
+                Graph node = lastNode.get(i);
+                int node1 = node.destination;
+                double edgeWeight = calculateEdgeWeight(node.weight, node.geographicalFactor, generalTypes);
+                if (isNotVisited(node1, path) && dist[node1] >= dist[last] + edgeWeight) {
+                    List<Integer> newpath = new ArrayList<>(path);
+                    newpath.add(node1);
+                    queue.offer(newpath);
+                    dist[node1] = dist[last] + edgeWeight;
+                }
+            }
+        }
+
+        if (shortestPath != null) {
+            List<List<Integer>> result = new ArrayList<>();
+            result.add(shortestPath);
+            return result;
+        } else {
+            return new ArrayList<>(); // No shortest path found
+        }
+        
+    }
+    
+    
+    private static double calculateEdgeWeightForPath(List<Integer> path, List<List<Graph>> g, String generalTypes) {
+        double totalWeight = 0.0;
+
+        for (int i = 0; i < path.size() - 1; i++) {
+            int current = path.get(i);
+            int next = path.get(i + 1);
+
+            List<Graph> neighbors = g.get(current);
+
+            for (Graph graph : neighbors) {
+                if (graph.destination == next) {
+                    double edgeWeight = calculateEdgeWeight(graph.weight, graph.geographicalFactor, generalTypes);
+                    totalWeight += edgeWeight;
+                    break;
+                }
+            }
+        }
+
+        return totalWeight;
+    }
+
+    public static double calculateEdgeWeight(double weight, String geographicalFactor,  String generalType) {
+        double speedFactor = 1.0;
+        
+        switch (generalType) {
+            case "cavalry":
+                switch (geographicalFactor) {
+                    case "flat road":
+                        speedFactor = 3.0*2;
+                        break;
+                    case "forest":
+                        speedFactor = 0.8*2;
+                        break;
+                    case "swamp":
+                        speedFactor = 0.3*2;
+                        break;
+                    case "plank road":
+                        speedFactor = 0.5*2;
+                        break;
+                }
+                break;
+            case "archer":
+                switch (geographicalFactor) {
+                    case "flat road":
+                        speedFactor = 2;
+                        break;
+                    case "forest":
+                        speedFactor = 1;
+                        break;
+                    case "swamp":
+                        speedFactor = 2.5;
+                        break;
+                    case "plank road":
+                        speedFactor = 0.5;
+                        break;
+                }
+                break;
+            case "infantry":
+                switch (geographicalFactor) {
+                    case "flat road":
+                        speedFactor = 2;
+                        break;
+                    case "forest":
+                        speedFactor = 2.5;
+                        break;
+                    case "swamp":
+                        speedFactor = 1;
+                        break;
+                    case "plank road":
+                        speedFactor = 0.5;
+                        break;
+                }
+                break;
+        }
+        double edgeWeight = weight / speedFactor;
+
+        return edgeWeight;
+    }
+
+    private static boolean isNotVisited(int x, List<Integer> path) {
+        int size = path.size();
+        for (int i = 0; i < size; i++)
+            if (path.get(i) == x)
+                return false;
+
+        return true;
+    }
+    private static List<String> generalTypes = Arrays.asList("cavalry", "archer", "infantry");
+
+    public static void main(String[] args) {
+        List<List<Graph>> g = new ArrayList<>();
+        int v = 11;
+        for (int i = 0; i < 11; i++) {
+            g.add(new ArrayList<>());
+        }
+        
+
+        addEdge(g, 1, 2, false, 10, "forest");
+        addEdge(g, 1, 3, false, 18, "flatRoad");
+        addEdge(g, 1, 6, false, 20, "flatRoad");
+        addEdge(g, 1, 10, false, 16, "flatRoad");
+        addEdge(g, 2, 4, false, 10, "swamp");
+        addEdge(g, 3, 4, false, 12, "swamp");
+        addEdge(g, 4, 5, false, 12, "swamp");
+        addEdge(g, 5, 7, false, 10, "forest");
+        addEdge(g, 5, 6, false, 17, "flatRoad");
+        addEdge(g, 6, 7, false, 23, "forest");
+        addEdge(g, 6, 8, false, 35, "plankRoad");
+        addEdge(g, 7, 8, false, 19, "flatRoad");
+        addEdge(g, 7, 9, false, 17, "flatRoad");
+        addEdge(g, 8, 9, false, 7, "swamp");
+        addEdge(g, 8, 10, false, 12, "forest");
+        addEdge(g, 9, 10, false, 18, "flatRoad");
+        addEdge(g, 3, 7, true, 28, "plankRoad");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the base camp for the enemy base camp: ");
+        int src = 1;
+        int dst = sc.nextInt();
+
+        List<List<Integer>> shortestPathsCavalry = findShortestPaths(g, src, dst, v, generalTypes.get(0));
+        System.out.println("Shortest path(s) for Cavalry by using breadth-first search algorithm:");
+        printShortestPaths(shortestPathsCavalry);
+        List<List<Integer>> shortestPathsCavalry1 = findShortestPaths1(g, src, dst, v, generalTypes.get(0));
+        System.out.println("Shortest path(s) for Cavalry by using best-first search algorithm:");
+        printShortestPaths(shortestPathsCavalry1);
+        System.out.println();
+        
+        List<List<Integer>> shortestPathsArcher = findShortestPaths(g, src, dst, v, generalTypes.get(1));
+        System.out.println("Shortest path(s) for Archer by using breadth-first search algorithm::");
+        printShortestPaths(shortestPathsArcher);
+        List<List<Integer>> shortestPathsArcher1 = findShortestPaths1(g, src, dst, v, generalTypes.get(1));
+        System.out.println("Shortest path(s) for Archer by using best-first search algorithm:");        
+        printShortestPaths(shortestPathsArcher1);
+        System.out.println();
+        
+        List<List<Integer>> shortestPathsInfantry = findShortestPaths(g, src, dst, v, generalTypes.get(2));
+        System.out.println("Shortest path(s) for Infantry by using breadth-first search algorithm::");
+        printShortestPaths(shortestPathsInfantry);
+        List<List<Integer>> shortestPathsInfantry1 = findShortestPaths1(g, src, dst, v, generalTypes.get(2));
+        System.out.println("Shortest path(s) for Infantry by using best-first search algorithm:");                
+        printShortestPaths(shortestPathsInfantry1);
+    }
+
+    private static void addEdge(List<List<Graph>> g, int i, int j, boolean isDirected, double weight, String geographicalFactor) {
+        g.get(i).add(new Graph(j, weight, geographicalFactor));
+        if (!isDirected) {
+            g.get(j).add(new Graph(i, weight, geographicalFactor));
+        }
+    }
+}
+
