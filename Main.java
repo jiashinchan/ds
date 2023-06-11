@@ -12,13 +12,11 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args){
-
+        
         // Initialization of class
         WuKingdomHierarchy kingdom = new WuKingdomHierarchy();
         SoldierArrangement soldiers = new SoldierArrangement();
         BorrowingArrow arrow = new BorrowingArrow();
-        EnemyFortress attack = new EnemyFortress();
-        FoodHarvesting food = new FoodHarvesting();
         EncryptedText secret = new EncryptedText();
         RedCliffonFire fire = new RedCliffonFire();
         EngagingCaoCao EngCC = new EngagingCaoCao();
@@ -38,7 +36,7 @@ public class Main {
             System.out.println("-1 Exit ");
             System.out.print("\nPlease select: ");
             String selection = choice.nextLine();
-            System.out.println("\n--------------------------------------------------------\n");
+            System.out.println("\n------------------------------------------------------------------\n");
              if (selection.equals("1")) {
                 kingdom.kingdomHierarchySelection();
             } else if (selection.equals("2")) {
@@ -46,9 +44,9 @@ public class Main {
             } else if (selection.equals("3")) {
                 arrow.borrowingArrowSelection();
             } else if (selection.equals("4")) {
-                attack.enemyFortressSelection();
+                EnemyFortress.main(new String[]{});
             } else if (selection.equals("5")) {
-                food.foodHarvestingSelection(); 
+                FoodHarvesting.main(new String[]{});
             } else if (selection.equals("6")) {
                 secret.EncryptedTextSelection();
             } else if (selection.equals("7")) {
@@ -64,7 +62,7 @@ public class Main {
         System.out.println("Thank you for visiting Wu Kingdom Strategy System\n");
 
     }
-
-
 }
+
+
 
