@@ -1,0 +1,109 @@
+
+import java.util.*;
+
+public class Question4 {
+    
+
+    
+
+// Java program to find shortest path 
+
+
+    private static void printShortestPaths(List<List<Integer>> shortestPaths) {
+        System.out.println("Best path(s):");
+        for (List<Integer> path : shortestPaths) {
+            for (int i = 0; i < path.size(); i++) {
+                System.out.print(path.get(i));
+                if (i != path.size() - 1) {
+                    System.out.print(" -> ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    private static List<List<Integer>> findShortestPaths(List<List<Integer>> g, int src, int dst, int v) {
+        Queue<List<Integer>> queue = new LinkedList<>();
+        List<Integer> path = new ArrayList<>();
+        path.add(src);
+        queue.offer(path);
+
+        List<List<Integer>> shortestPaths = new ArrayList<>();
+        int[] dist = new int[v];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[src] = 0;
+
+        while (!queue.isEmpty()) {
+            path = queue.poll();
+            int last = path.get(path.size() - 1);
+
+            if (last == dst) {
+                shortestPaths.add(new ArrayList<>(path));
+            }
+
+            List<Integer> lastNode = g.get(last);
+            for (int i = 0; i < lastNode.size(); i++) {
+                int node = lastNode.get(i);
+                if (isNotVisited(node, path) && dist[node] >= path.size()) {
+                    List<Integer> newpath = new ArrayList<>(path);
+                    newpath.add(node);
+                    queue.offer(newpath);
+                    dist[node] = path.size();
+                }
+            }
+        }
+
+        return shortestPaths;
+    }
+
+    private static boolean isNotVisited(int x, List<Integer> path) {
+        int size = path.size();
+        for (int i = 0; i < size; i++)
+            if (path.get(i) == x)
+                return false;
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+        List<List<Integer>> g = new ArrayList<>();
+        int v = 11;
+        for (int i = 0; i < 11; i++) {
+            g.add(new ArrayList<>());
+        }
+
+        addEdge(g, 1, 2, false);
+        addEdge(g, 1, 3, false);
+        addEdge(g, 1, 6, false);
+        addEdge(g, 1, 10, false);
+        addEdge(g, 2, 4, false);
+        addEdge(g, 3, 4, false);
+        addEdge(g, 4, 5, false);
+        addEdge(g, 5, 7, false);
+        addEdge(g, 5, 6, false);
+        addEdge(g, 6, 7, false);
+        addEdge(g, 6, 8, false);
+        addEdge(g, 7, 8, false);
+        addEdge(g, 7, 9, false);
+        addEdge(g, 8, 9, false);
+        addEdge(g, 8, 10, false);
+        addEdge(g, 9, 10, false);
+        addEdge(g, 3, 7, true);
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the base camp for the enemy base camp: ");
+        int src = 1;
+        int dst = sc.nextInt();
+
+        List<List<Integer>> shortestPaths = findShortestPaths(g, src, dst, v);
+        printShortestPaths(shortestPaths);
+    }
+
+    private static void addEdge(List<List<Integer>> g, int i, int j, boolean isDirected) {
+        g.get(i).add(j);
+        if (!isDirected) {
+            g.get(j).add(i);
+        }
+    }
+}
+
