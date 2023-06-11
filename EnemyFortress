@@ -1,13 +1,16 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package mydsass;
 
 import java.util.*;
 
-public class Question4 {
-    
-
-    
-
-// Java program to find shortest path 
-
+/**
+ *
+ * @author sofea
+ */
+public class EnemyFortress {
 
     private static void printShortestPaths(List<List<Integer>> shortestPaths) {
         System.out.println("Best path(s):");
@@ -21,7 +24,7 @@ public class Question4 {
             System.out.println();
         }
     }
-
+//applying bfs
     private static List<List<Integer>> findShortestPaths(List<List<Integer>> g, int src, int dst, int v) {
         Queue<List<Integer>> queue = new LinkedList<>();
         List<Integer> path = new ArrayList<>();
@@ -90,6 +93,10 @@ public class Question4 {
         addEdge(g, 9, 10, false);
         addEdge(g, 3, 7, true);
 
+        System.out.println("Before the Battle of the Red Cliff, Cao Cao had also built a fortress on the \n" +
+                           "battlefield as their headquarters.");
+        System.out.println(""); 
+        System.out.println("Node 1 is the starting point. Node 3 to Node 7 is a directed edge.");
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the base camp for the enemy base camp: ");
         int src = 1;
@@ -106,4 +113,5 @@ public class Question4 {
         }
     }
 }
+
 
