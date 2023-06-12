@@ -27,7 +27,8 @@ private static final int CASE_DIFFERENCE = 32; // Difference between lowercase a
                            decisions.Sun Quan assigned a spy,Pang Tong as Cao Cao's loyal minister.For
                            Sun Quan to communicate with Pang Tong,they cannot write letters in a pure
                            language but instead,have to encrypt the text so that only both of them can
-                           understand the text.
+                           understand the text.They decided to use Caeser Cipher as their encryption 
+                           algorithm.
                            """);
         Scanner input = new Scanner(System.in); 
         System.out.println("\nHelp Pang Tong to decipher the letter sent by Sun Quan.");
