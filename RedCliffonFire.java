@@ -122,6 +122,5 @@ public class RedCliffonFire {
             DFS(grid, newI, newJ, visited);
         }
     }
-}
-
- 
+} 
+                           
