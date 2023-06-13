@@ -21,7 +21,7 @@ private static final int CASE_DIFFERENCE = 32; // Difference between lowercase a
     // Begin loop
     while (true) {
         // Get user inputs
-        System.out.println("<<<Encrypted Text>>>>");
+        System.out.println("<<Encrypted Text>>");
         System.out.println("""
                            To penetrate the enemy forces,steal the enemy information,and manipulate the
                            decisions.Sun Quan assigned a spy,Pang Tong as Cao Cao's loyal minister.For
