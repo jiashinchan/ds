@@ -27,12 +27,12 @@ public class RedCliffonFire {
     public static void redCliffonFireSelection() {
         System.out.println("<<Red Cliff On Fire>>");
         System.out.println("""
-                           Everything is well prepared before the final battle.Sun Quan's forces have enough
+                           \nEverything is well prepared before the final battle.Sun Quan's forces have enough
                            arrows,enough food.They cleare the enemy's base camp on the battleground.Moreover,
                            Cao Cao had used The Chain Strategem as advised by spy Pang Tong,which is the 
-                           decision that will make him regret.""");  
-        System.out.println("\n2D matrix of Cao Cao chained battleships");
-        
+                           decision that will make him regret.
+                           """);  
+        System.out.println("\n2D matrix of Cao Cao chained battleships:\n");
         // Print the original cluster matrix
         for (int row = 0; row < cluster.length; row++) {
             for (int col = 0; col < cluster[row].length; col++) {
@@ -40,9 +40,10 @@ public class RedCliffonFire {
             }
             System.out.println();
         }
+        System.out.println("\n*1 denotes the battleship,0 denotes the position without a battleship");
         System.out.println("\n----------------------------------------------------------------------------------------\n");
-        System.out.println("*1 denotes the battleship,0 denotes the position without a battleship");
-        System.out.println("\n Enter the 2D matrix:");
+
+        System.out.println("Enter the 2D matrix:");
 
         Scanner sc = new Scanner(System.in);
         StringBuilder strbuild = new StringBuilder();
@@ -123,4 +124,3 @@ public class RedCliffonFire {
         }
     }
 } 
-                           
