@@ -12,6 +12,8 @@ import java.util.*;
  */
 public class EnemyFortress {
 
+    private static Scanner sc = new Scanner(System.in);
+    
     private static void printShortestPaths(List<List<Integer>> shortestPaths) {
         System.out.println("Best path(s):");
         for (List<Integer> path : shortestPaths) {
@@ -21,9 +23,10 @@ public class EnemyFortress {
                     System.out.print(" -> ");
                 }
             }
-            System.out.println();
+            System.out.println();    
         }
     }
+    
 //applying bfs
     private static List<List<Integer>> findShortestPaths(List<List<Integer>> g, int src, int dst, int v) {
         Queue<List<Integer>> queue = new LinkedList<>();
@@ -93,11 +96,10 @@ public class EnemyFortress {
         addEdge(g, 9, 10, false);
         addEdge(g, 3, 7, true);
 
-        System.out.println("Before the Battle of the Red Cliff, Cao Cao had also built a fortress on the \n" +
-                           "battlefield as their headquarters.");
+        System.out.println("Before the Battle of the Red Cliff, Cao Cao had also built a fortress\n" +
+                           "on the battlefield as their headquarters.");
         System.out.println(""); 
         System.out.println("Node 1 is the starting point. Node 3 to Node 7 is a directed edge.");
-        Scanner sc = new Scanner(System.in);
         System.out.print("Enter the base camp for the enemy base camp: ");
         int src = 1;
         int dst = sc.nextInt();
@@ -113,5 +115,3 @@ public class EnemyFortress {
         }
     }
 }
-
-
