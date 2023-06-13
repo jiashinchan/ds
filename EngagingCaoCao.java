@@ -40,8 +40,6 @@ public class EngagingCaoCao {
                            Zhao Yun can catch up with him. Besides, Guan Yu is ahead and is engaging Cao Cao 
                            at the exit of the maze.""");
         System.out.println("\n2D maze of Hua Rong Road: ");
-        System.out.println("*2 denotes the starting point,3 denotes the exit of the maze*");
-        
         for (int row = 0; row < Maze.length; row++) {
             for (int col = 0; col < Maze[row].length; col++) {
                 System.out.print(Maze[row][col] + " ");
@@ -50,6 +48,9 @@ public class EngagingCaoCao {
         }
         System.out.println("\n----------------------------------------------------------------------------------------\n");
 
+        System.out.println("*2 denotes the starting point,3 denotes the exit of the maze*");
+        System.out.println("*1 represents the walls and 0 represents the roads*");
+        
         System.out.println("Enter to find the path: ");
         engage.nextLine();
 
