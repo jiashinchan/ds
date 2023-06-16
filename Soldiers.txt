@@ -1,0 +1,125 @@
+Name: Sun Quan
+Position: Emperor
+Army Type: Cavalry
+Strength: 96
+Leadership: 98
+Intelligence: 72
+Politic: 77
+Hit Point: 95
+
+Name: Zhang Zhao
+Position: Chief of Management
+Army Type: Archer
+Strength: 22
+Leadership: 80
+Intelligence: 89
+Politic: 99
+Hit Point: 60
+
+Name: Zhou Yu
+Position: Chief of Military
+Army Type: Cavalry
+Strength: 80
+Leadership: 86
+Intelligence: 97
+Politic: 80
+Hit Point: 90
+
+Name: Xu Sheng
+Position: General
+Army Type: Archer
+Strength: 90
+Leadership: 78
+Intelligence: 72
+Politic: 40
+Hit Point: 94
+
+Name: Zhu Ge Jin
+Position: General
+Army Type: Archer
+Strength: 63
+Leadership: 61
+Intelligence: 88
+Politic: 82
+Hit Point: 71
+
+Name: Lu Su
+Position: General
+Army Type: Infantry
+Strength: 43
+Leadership: 87
+Intelligence: 84
+Politic: 88
+Hit Point: 53
+
+Name: Tai Shi Ci
+Position: General
+Army Type: Cavalry
+Strength: 96
+Leadership: 81
+Intelligence: 43
+Politic: 33
+Hit Point: 97
+
+Name: Xiao Qiao
+Position: General
+Army Type: Infantry
+Strength: 42
+Leadership: 52
+Intelligence: 89
+Politic: 77
+Hit Point: 34
+
+Name: Da Qiao
+Position: General
+Army Type: Cavalry
+Strength: 39
+Leadership: 62
+Intelligence: 90
+Politic: 62
+Hit Point: 41
+
+Name: Zhou Tai
+Position: General
+Army Type: Infantry
+Strength: 92
+Leadership: 89
+Intelligence: 72
+Politic: 43
+Hit Point: 99
+
+Name: Gan Ning
+Position: General
+Army Type: Archer
+Strength: 98
+Leadership: 92
+Intelligence: 45
+Politic: 23
+Hit Point: 97
+
+Name: Lu Meng
+Position: General
+Army Type: Cavalry
+Strength: 70
+Leadership: 77
+Intelligence: 93
+Politic: 83
+Hit Point: 88
+
+Name: Huang Gai
+Position: General
+Army Type: Infantry
+Strength: 83
+Leadership: 98
+Intelligence: 72
+Politic: 42
+Hit Point: 89
+
+Name: Gong Ben
+Position: General
+Army Type: Calvary
+Strength: 90
+Leadership: 90
+Intelligence: 90
+Politic: 90
+Hit Point: 90
