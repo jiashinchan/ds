@@ -61,15 +61,18 @@ public class FoodHarvesting {
     }
 
     public void findHamiltonianCycle() {
+        Scanner in = new Scanner(System.in);
         int numOfVertices = adjacencyList.size();
         path[0] = 0;
         System.out.println("Path to harvest food : ");
-
         if (solve(1)) {
             printHamiltonianCycle(numOfVertices);
         } else {
             System.out.println("1 -> 2 -> 4 -> 3 -> 7 -> 5 -> 6 -> 8 -> 9 -> 10 -> 1");
         }
+        System.out.print("\nPress Enter to go back to the basic features");
+        in.nextLine();
+        System.out.println("\n-----------------------------------------------------------------------------\n");  
     }
 
     private boolean solve(int position) {
@@ -120,12 +123,12 @@ public class FoodHarvesting {
 
     public static void main(String[] args) {
         int numToSkip;
-        System.out.println("You need to depart from Sun Wu's camp(Node 1) and harvest all the food on each"+
+        System.out.println("<<Food Harvesting>>");
+        System.out.println("\nYou need to depart from Sun Wu's camp(Node 1) and harvest all the food on each"+
                             "\nnode and back to Sun Wu's camp(Node 1) without passing through a node twice.");
         System.out.println("\nSometimes, some of the nodes may no have food, so you may not need to go to"
                            +"\nthat node. ");
-        System.out.println("");
-        System.out.print("Enter node without food: ");
+        System.out.print("\nEnter node without food: ");
         Scanner in = new Scanner(System.in);
         numToSkip = in.nextInt();
         int numGraph = 10;
@@ -155,3 +158,4 @@ public class FoodHarvesting {
         main.findHamiltonianCycle();
     }
 }
+
