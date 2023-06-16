@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package mydsass;
-
 import java.util.Scanner;
-
 /**
  *
  * @author jiash
@@ -65,7 +63,7 @@ public class RedCliffonFire {
         }
         int numClusters = numOfClusters(battleships);
         System.out.printf("Number of Clusters: %d clusters%n", numClusters);
-        System.out.print("\nPress Enter to go back to Main");
+        System.out.print("\nPress Enter to go back to the basic features");
         sc.nextLine();
         System.out.println("\n-----------------------------------------------------------------------------------\n");
     }
