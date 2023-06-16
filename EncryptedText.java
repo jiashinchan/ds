@@ -85,7 +85,7 @@ private static final int CASE_DIFFERENCE = 32; // Difference between lowercase a
             }
             System.out.println("Secret from Sun Quan : " + textdecryption);
             System.out.println("\n-----------------------------------------------------------------------------\n");
-            System.out.print("\nPress Enter to go back to Main");
+            System.out.print("\nPress Enter to go back to the basic features");
             input.nextLine();
             System.out.println("\n-----------------------------------------------------------------------------\n");
             return;
