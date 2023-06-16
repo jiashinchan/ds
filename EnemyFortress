@@ -11,22 +11,24 @@ import java.util.*;
  * @author sofea
  */
 public class EnemyFortress {
-
-    private static Scanner sc = new Scanner(System.in);
     
     private static void printShortestPaths(List<List<Integer>> shortestPaths) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Best path(s):");
         for (List<Integer> path : shortestPaths) {
             for (int i = 0; i < path.size(); i++) {
                 System.out.print(path.get(i));
                 if (i != path.size() - 1) {
                     System.out.print(" -> ");
-                }
+                }          
             }
-            System.out.println();    
+            System.out.println(); 
         }
+        System.out.print("\nPress Enter to go back to the basic features");
+        sc.nextLine();
+        System.out.println("\n-----------------------------------------------------------------------------\n"); 
     }
-    
+  
 //applying bfs
     private static List<List<Integer>> findShortestPaths(List<List<Integer>> g, int src, int dst, int v) {
         Queue<List<Integer>> queue = new LinkedList<>();
@@ -72,6 +74,7 @@ public class EnemyFortress {
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         List<List<Integer>> g = new ArrayList<>();
         int v = 11;
         for (int i = 0; i < 11; i++) {
@@ -96,7 +99,8 @@ public class EnemyFortress {
         addEdge(g, 9, 10, false);
         addEdge(g, 3, 7, true);
 
-        System.out.println("Before the Battle of the Red Cliff, Cao Cao had also built a fortress\n" +
+        System.out.println("<<Enemy Fortress Attack Simulation>>");
+        System.out.println("\nBefore the Battle of the Red Cliff, Cao Cao had also built a fortress\n" +
                            "on the battlefield as their headquarters.");
         System.out.println(""); 
         System.out.println("Node 1 is the starting point. Node 3 to Node 7 is a directed edge.");
