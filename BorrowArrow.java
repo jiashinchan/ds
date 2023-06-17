@@ -1,61 +1,38 @@
-
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package mydsass;
+import java.util.*;
 
 /**
  *
- * @author:
+ * @author kelly
  */
-public class BorrowArrow {
+class BorrowArrow {
 
     BorrowArrow a;
-
+    
     public void borrowingArrowSelection() {
-
         //Initialization of Borrowing Arrow
         a = new BorrowArrow();
-
-        while (true) {
-            Scanner option = new Scanner(System.in);
-
-            System.out.println("1. Arrow Borrowing : \n");
-            
-            System.out.println("There are four directions(edges) of the boat: front, right, back, left. Straw men can be placed\n"
-                            + "along each edge of the boat.\n\n"
-                            + "Enter the number of straw men for each direction and the number\n"
-                            + "of arrow waves sent by enemy.\n\n");
-            
-            System.out.println("2 Exit Page");
-            System.out.print("\nPlease Select: ");
-            String opt = option.nextLine();
-            System.out.println("\n--------------------------------------------------------\n");
-
-            switch (opt) {
-
-                case "1":
-                    System.out.println(" Borrowing Arrows with Straw Boats(Rules)\n");
-                    System.out.println("->Number of straw men in one direction is always less than 100");
-                    System.out.println("-> Number of arrow waves must be in decreasing order");
-                    System.out.println("->Straw men for each direction cannot be used more than 3 times\n");
-                    a.computeBorrowingArrow(1);
-                    System.out.println("Enter to go back to \"Arrow Borrowing\" page");
-                    option.nextLine();
-                    break;
-
-                //Exit interface
-                case "2":
-                    return;
-
-                default:
-                    System.out.println("Unrecognized selection. Please key in again.\n");
-            }
-
-        }
-
+        
+        System.out.println("<<Borrowing Arrows with Straw Boats>>");
+        System.out.println("""
+                           To win the battle against Cao Cao, having enough arrows is vital, but Wu Kingdom
+                           is lack of them. Zhu Ge Liang,a brilliant strategist,plans to use fog to deceive
+                           the enemy.By covering the boats with straw men as soldiers,he creates an illusion
+                           of large force.As enemy fires their arrows at the straw man,Zhu Ge Liang's troops
+                           will collect and reuse the arrows against the enemy.
+                           """);
+        System.out.println("Rules:");
+        System.out.println("->Number of straw men in one direction is always less than 100");
+        System.out.println("->Number of arrow waves must be in decreasing order");
+        System.out.println("->Straw men for each direction cannot be used more than 3 times\n");
+        a.BorrowingArrow(1);
     }
-
-    public void computeBorrowingArrow(int mode) {
+    
+    public void BorrowingArrow(int mode) {
 
         ArrayList<StrawMen> strawMenList = new ArrayList<>();
         ArrayList<Integer> arrowWaveList = new ArrayList<>();
@@ -64,15 +41,13 @@ public class BorrowArrow {
         int totalArrow = 0;
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Number of straw men ( less than 100 ) for each direction [-1 to exit]");
-        String[] dir = {"Front", "Left", "Right", "Back"};
+        System.out.println("Number of straw men");
+        String[] direction = {"Front", "Left", "Right", "Back"};
 
-        for (String d : dir) {
-
+        for (String d : direction) {
             int input;
-
+            
             while (true) {
-
                 try {
                     System.out.print(d + ": ");
                     input = sc.nextInt();
@@ -82,11 +57,9 @@ public class BorrowArrow {
                     if (input == -1) {
                         return;
                     }
-
                     // Wrong input
                     if (input < 0 || input >= 100) {
                         System.out.println("Invalid input. Number of straw men must be [0~100)");
-
                         // Correct input
                     } else {
                         // new StrawMen( direction, numStrawMen, mode)
@@ -98,15 +71,12 @@ public class BorrowArrow {
                     System.out.println("Invalid input.Input must be integer.");
                     sc.nextLine(); //avoid skipping nextLine() problem
                 }
-
             }
         }
 
         String inputArrow;
-
         while (true) {
-
-            System.out.println("\nInput Arrows in descending order. Format\"[2000,1500,100,..]\" : ");
+            System.out.println("\nArrow: ");
             
             inputArrow = sc.nextLine();
 
@@ -132,7 +102,7 @@ public class BorrowArrow {
                 }
 
                 for (String arrow : arrowArr) {
-                    arrowWaveList.add(Integer.parseInt(arrow));
+                    arrowWaveList.add(Integer.valueOf(arrow));
                 }
                 break;
 
@@ -220,13 +190,16 @@ public class BorrowArrow {
     }
 
     public void displayResult(ArrayList<String> boatDirList, ArrayList<Integer> arrowReceivedList, int totalArrow) {
-
+        Scanner sc= new Scanner(System.in);
         System.out.println("Result:\n");
       
         System.out.println("Best boat direction: " + boatDirList.toString());
         System.out.println("Arrow received: " + arrowReceivedList.toString());
         System.out.println("Total = " + totalArrow);
-
+        
+        System.out.print("\nPress Enter to go back to the basic features");
+        sc.nextLine();
+        System.out.println("\n-----------------------------------------------------------------------------\n"); 
     }
 
     //return String array including the direction and  max number of arrow received of one arrow wave
@@ -261,7 +234,7 @@ public class BorrowArrow {
             incCountUsed = maxStrawMen.getCountUsed() + 1; //increase count of usage
             maxStrawMen.setCountUsed(incCountUsed);
             //update numStrawMen as well since numStrawMen is based on countUsed
-            maxStrawMen.setNumStrawMen(maxStrawMen.computeNumStrawMenLeft());
+            maxStrawMen.setNumStrawMen(maxStrawMen.NumStrawMenLeft());
         }     
 
         return dirArrow;
@@ -281,7 +254,7 @@ class StrawMen {
         this.direction = direction;
         this.initialNumStrawMen = initialNumStrawMen;
         this.mode = mode;
-        numStrawMen = computeNumStrawMenLeft();
+        numStrawMen = NumStrawMenLeft();
     }
 
     public StrawMen() {
@@ -320,7 +293,7 @@ class StrawMen {
     }
 
     //calculate number of straw men left based on number of usage
-    public int computeNumStrawMenLeft() {
+    public int NumStrawMenLeft() {
 
         int strawMenLeft = 0;
 
@@ -342,8 +315,6 @@ class StrawMen {
                     strawMenLeft = 0;
                     break;
             }
-        
-
         return strawMenLeft;
     }
 
